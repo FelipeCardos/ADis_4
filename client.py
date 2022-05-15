@@ -1,5 +1,6 @@
 import requests
 import sys
+import ssl
 
 class Client:
     def __init__(self, base):

@@ -1,4 +1,5 @@
 import requests
+import ssl
 
 class Spotify:
     def __init__(self, OAuth_Token):
