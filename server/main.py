@@ -1,6 +1,7 @@
 from database import Database
 from flask import Flask, request
 from spotify import Spotify
+import ssl
 
 app = Flask(__name__)
 
@@ -293,4 +294,8 @@ def musicas(id = None, avl= None):
                 return "Música não encontrada", 404
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_SERVER)
+    context.verify_mode = ssl.CERT_REQUIRED
+    context.load_verify_locations(cafile='../certs/root.pem')
+    context.load_cert_chain(certfile='../certs/serv.crt',keyfile='../certs/serv.key')
+    app.run('localhost', ssl_context=context, debug = True)
