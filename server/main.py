@@ -1,7 +1,7 @@
 from database import Database
 from flask import Flask, request
 from spotify import Spotify
-# from requests_oauthlib import OAuth2Session
+from requests_oauthlib import OAuth2Session
 import ssl
 
 app = Flask(__name__)
@@ -293,12 +293,24 @@ def musicas(id = None, avl= None):
             else:
                 return "Música não encontrada", 404
 
+@app.route('/login', methods = ["GET"])
 def login():
-    pass
+	authorization_base_url = 'https://accounts.spotify.com/authorize'
+	authorization_url, state = spotify.authorization_url(authorization_base_url)
+	return redirect(authorization_url)
+
+@app.route('/callback', methods = ["GET"])
 def callback():
-    pass
+	global github
+	token_url = 'https://accounts.spotify.com/api/token'
+	spotify.fetch_token(token_url,client_secret=client_secret,authorization_response=request.url)
+	return redirect(url_for('.profile'))
+
+@app.route("/profile", methods=["GET"])
 def profile():
-    pass
+	protected_resource = 'https://api.spotify.com/v1/me'
+	return jsonify(spotify.get(protected_resource).json())
+
 
 if __name__ == "__main__":
     context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_SERVER)
