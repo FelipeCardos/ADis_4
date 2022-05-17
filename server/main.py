@@ -1,6 +1,7 @@
 from database import Database
 from flask import Flask, request
 from spotify import Spotify
+# from requests_oauthlib import OAuth2Session
 import ssl
 
 app = Flask(__name__)
@@ -15,8 +16,7 @@ print("----------------------------------------------------")
 @app.route("/utilizadores/<int:id>/playlist", methods=["POST","GET","DELETE"])
 @app.route("/utilizadores/<int:id>", methods=["GET","PUT","DELETE"])
 @app.route("/utilizadores/<int:id>/playlist/<int:playlist_id>", methods=["PUT"])
-def utilizadores(id = None, playlist_id = None):
-    
+def utilizadores(id = None, playlist_id = None):  
     if request.method == "POST":
         if request.path == "/utilizadores":
             try:
@@ -292,6 +292,13 @@ def musicas(id = None, avl= None):
                 return {"musica":{"id": result[0][0], "id_spotify": result[0][1], "nome": result[0][2], "id_artista": result[0][3]}}, 200
             else:
                 return "Música não encontrada", 404
+
+def login():
+    pass
+def callback():
+    pass
+def profile():
+    pass
 
 if __name__ == "__main__":
     context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_SERVER)
