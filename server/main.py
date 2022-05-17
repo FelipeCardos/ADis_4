@@ -1,15 +1,18 @@
 from database import Database
-from flask import Flask, request
+from flask import Flask, redirect, url_for, jsonify, request
 from spotify import Spotify
 from requests_oauthlib import OAuth2Session
+import os
 import ssl
 
 app = Flask(__name__)
 
 db = Database("spotify.db")
 db.set_foreign_keys()
-spotify = Spotify("BQC6h7H4SANzoFOx3wAjkfSY5KOq34ai_yATnucgIv9oEZSay1aX5urb_XHWeTIRJk4ufx6ZzmoPSiJ4GkDDMXHGZcWTsDzUh5roY6A57AprIfvCG_8lWhK3gvPpQAlIYS6dT_hmMkEdeA")
-
+client_id = '4267e3957f68403792ce74c16c0f2b85'
+client_secret ='8460cb0f219642cb82fde649a0838ff3'
+redirect_uri= 'https://localhost:5000/callback'
+spotify = OAuth2Session(client_id, redirect_uri=redirect_uri)
 print("----------------------------------------------------")
 
 @app.route("/utilizadores", methods=["GET", "DELETE", "POST"])
@@ -301,7 +304,7 @@ def login():
 
 @app.route('/callback', methods = ["GET"])
 def callback():
-	global github
+	global spotify
 	token_url = 'https://accounts.spotify.com/api/token'
 	spotify.fetch_token(token_url,client_secret=client_secret,authorization_response=request.url)
 	return redirect(url_for('.profile'))
