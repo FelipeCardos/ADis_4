@@ -132,12 +132,6 @@ def utilizadores(id = None, playlist_id = None):
             else:
                 return "Utilizador não encontrado", 404
 
-
-
-
-
-
-
 @app.route("/artistas", methods=["GET","DELETE", "POST"])
 @app.route("/artistas/<int:id>", methods=["GET","DELETE"])
 @app.route("/artistas/<int:id>/playlist", methods=["GET","DELETE"])
@@ -210,14 +204,6 @@ def artistas(id = None):
                 return {"artista":{"id": result[0][0], "id_spotify": result[0][1], "nome": result[0][2]}}, 200
             else:
                 return "Artista não encontrado", 404
-
-
-
-
-
-
-
-
 
 @app.route("/musicas", methods=["GET","DELETE","POST"])
 @app.route("/musicas/<int:id>", methods=["GET","DELETE"])
@@ -307,7 +293,7 @@ def callback():
 	global spotify
 	token_url = 'https://accounts.spotify.com/api/token'
 	spotify.fetch_token(token_url,client_secret=client_secret,authorization_response=request.url)
-	return redirect(url_for('.profile'))
+	return redirect(url_for('profile'))
 
 @app.route("/profile", methods=["GET"])
 def profile():
