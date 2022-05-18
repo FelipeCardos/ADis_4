@@ -12,7 +12,7 @@ db.set_foreign_keys()
 client_id = '4267e3957f68403792ce74c16c0f2b85'
 client_secret ='8460cb0f219642cb82fde649a0838ff3'
 redirect_uri= 'https://localhost:5000/callback'
-spotify = OAuth2Session(client_id, redirect_uri=redirect_uri)
+spotify = OAuth2Session(client_id=client_id, redirect_uri=redirect_uri)
 print("----------------------------------------------------")
 
 @app.route("/utilizadores", methods=["GET", "DELETE", "POST"])
@@ -292,8 +292,8 @@ def login():
 def callback():
 	global spotify
 	token_url = 'https://accounts.spotify.com/api/token'
-	spotify.fetch_token(token_url,client_secret=client_secret,authorization_response=request.url)
-	return redirect(url_for('profile'))
+	spotify.fetch_token(token_url=token_url,client_secret=client_secret,authorization_response=request.url)
+	return redirect(url_for('.profile'))
 
 @app.route("/profile", methods=["GET"])
 def profile():
