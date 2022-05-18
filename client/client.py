@@ -178,7 +178,7 @@ class Client:
         
         
 def main() -> None:
-    base = "http://127.0.0.1:5000/"
+    base = "http://localhost:5000/"
     check = Client(base)
     
     while True:
