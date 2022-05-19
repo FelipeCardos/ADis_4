@@ -96,7 +96,7 @@ class Client:
         
     def send_request(self, command, checked_type):
         if checked_type == "C1":
-            return requests.post(self.base + "utilizadores", {'nome': command[2], 'senha': command[3]},verify='../certs/root.pem',cert=('../certs/cli.crt','../certs/cli.key'))
+            return requests.post(self.base + "utilizadores", {'nome': command[2], 'senha': command[3]},verify='..\certs\root.pem',cert=('..\certs\cli.crt','..\certs\cli.key'))
         
         
         
