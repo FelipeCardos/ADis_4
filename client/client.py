@@ -94,83 +94,83 @@ class Client:
             return self.__check_command(splited_command)
         
         
-    def send_request(self, command, checked_type):
+    def send_request(self, command, checked_type, verify_path, cert_path):
         if checked_type == "C1":
-            return requests.post(self.base + "utilizadores", {'nome': command[2], 'senha': command[3]},verify='..\certs\root.pem',cert=('..\certs\cli.crt','..\certs\cli.key'))
+            return requests.post(self.base + "utilizadores", {'nome': command[2], 'senha': command[3]}, verify=verify_path, cert=cert_path)
         
         
         
         if checked_type == "C2":
             if command[1] == "ARTISTA":
-                return requests.post(self.base + "artistas", {'id_spotify': command[2]})
+                return requests.post(self.base + "artistas", {'id_spotify': command[2]}, verify=verify_path, cert=cert_path)
             else:
-                return requests.post(self.base + "musicas", {'id_spotify': command[2]})
+                return requests.post(self.base + "musicas", {'id_spotify': command[2]}, verify=verify_path, cert=cert_path)
             
             
         if checked_type == "C3":
-            return requests.post(self.base + "utilizadores/" + str(command[1]) + "/playlist", {'id_musica': command[2], 'avaliacao': command[3]})
+            return requests.post(self.base + "utilizadores/" + str(command[1]) + "/playlist", {'id_musica': command[2], 'avaliacao': command[3]}, verify=verify_path, cert=cert_path)
         
         
         if checked_type == "C4":
             if command[0] == "READ":
                 if command[1] == "UTILIZADOR":
-                    return requests.get(self.base + "utilizadores/" + str(command[2]))
+                    return requests.get(self.base + "utilizadores/" + str(command[2]), verify=verify_path, cert=cert_path)
                 if command[1] == "ARTISTA":
-                    return requests.get(self.base + "artistas/" + str(command[2]))
+                    return requests.get(self.base + "artistas/" + str(command[2]), verify=verify_path, cert=cert_path)
                 if command[1] == "MUSICA":
-                    return requests.get(self.base + "musicas/" + str(command[2]))
+                    return requests.get(self.base + "musicas/" + str(command[2]), verify=verify_path, cert=cert_path)
             if command[0] == "DELETE":
                 if command[1] == "UTILIZADOR":
-                    return requests.delete(self.base + "utilizadores/" + str(command[2]))
+                    return requests.delete(self.base + "utilizadores/" + str(command[2]), verify=verify_path, cert=cert_path)
                 if command[1] == "ARTISTA":
-                    return requests.delete(self.base + "artistas/" + str(command[2]))
+                    return requests.delete(self.base + "artistas/" + str(command[2]), verify=verify_path, cert=cert_path)
                 if command[1] == "MUSICA":
-                    return requests.delete(self.base + "musicas/" + str(command[2]))
+                    return requests.delete(self.base + "musicas/" + str(command[2]), verify=verify_path, cert=cert_path)
         
         
         if checked_type == "C5":
             if command[0] == "READ":
                 if command[2] == "UTILIZADORES":
-                    return requests.get(self.base + "utilizadores")
+                    return requests.get(self.base + "utilizadores", verify=verify_path, cert=cert_path)
                 if command[2] == "ARTISTAS":
-                    return requests.get(self.base + "artistas")
+                    return requests.get(self.base + "artistas", verify=verify_path, cert=cert_path)
                 if command[2] == "MUSICAS":
-                    return requests.get(self.base + "musicas")
+                    return requests.get(self.base + "musicas", verify=verify_path, cert=cert_path)
             if command[0] == "DELETE":
                 if command[2] == "UTILIZADORES":
-                    return requests.delete(self.base + "utilizadores")
+                    return requests.delete(self.base + "utilizadores", verify=verify_path, cert=cert_path)
                 if command[2] == "ARTISTAS":
-                    return requests.delete(self.base + "artistas")
+                    return requests.delete(self.base + "artistas", verify=verify_path, cert=cert_path)
                 if command[2] == "MUSICAS":
-                    return requests.delete(self.base + "musicas")
+                    return requests.delete(self.base + "musicas", verify=verify_path, cert=cert_path)
         
         
         if checked_type == "C6":
             if command[0] == "READ":
                 if command[2] == "MUSICAS_A":
-                    return requests.get(self.base + "artistas/" + str(command[3]) + "/playlist")
+                    return requests.get(self.base + "artistas/" + str(command[3]) + "/playlist", verify=verify_path, cert=cert_path)
                 if command[2] == "MUSICAS_U":
-                    return requests.get(self.base + "utilizadores/" + str(command[3]) + "/playlist")
+                    return requests.get(self.base + "utilizadores/" + str(command[3]) + "/playlist", verify=verify_path, cert=cert_path)
             if command[0] == "DELETE":
                 if command[2] == "MUSICAS_A":
-                    return requests.delete(self.base + "artistas/" + str(command[3]) + "/playlist")
+                    return requests.delete(self.base + "artistas/" + str(command[3]) + "/playlist", verify=verify_path, cert=cert_path)
                 if command[2] == "MUSICAS_U":
-                    return requests.delete(self.base + "utilizadores/" + str(command[3]) + "/playlist")
+                    return requests.delete(self.base + "utilizadores/" + str(command[3]) + "/playlist", verify=verify_path, cert=cert_path)
         
         
         if checked_type == "C7":
             if command[0] == "READ":
-                return requests.get(self.base + "musicas/playlist/" + str(command[3]))
+                return requests.get(self.base + "musicas/playlist/" + str(command[3]), verify=verify_path, cert=cert_path)
             if command[0] == "DELETE":
-                return requests.delete(self.base + "musicas/playlist/" + str(command[3]))
+                return requests.delete(self.base + "musicas/playlist/" + str(command[3]), verify=verify_path, cert=cert_path)
         
         
         if checked_type == "C8":
-            return requests.put(self.base + "utilizadores/" + str(command[4])+ "/playlist/" + str(command[2]), {"avaliacao": command[3]})
+            return requests.put(self.base + "utilizadores/" + str(command[4])+ "/playlist/" + str(command[2]), {"avaliacao": command[3]}, verify=verify_path, cert=cert_path)
         
         
         if checked_type == "C9":
-            return requests.put(self.base + "utilizadores/" + str(command[2]), {"senha": command[3]})
+            return requests.put(self.base + "utilizadores/" + str(command[2]), {"senha": command[3]}, verify=verify_path, cert=cert_path)
         
         
     def receive_request(self, request):
@@ -178,14 +178,16 @@ class Client:
         
         
 def main() -> None:
-    base = "http://localhost:5000/"
+    base = "https://localhost:5000/"
+    verify = '../certs/root.pem'
+    cert = ('../certs/cli.crt','../certs/cli.key')
     check = Client(base)
     
     while True:
         asked_command = input("Digite o comando: ")
         (checked, checked_type) = check.start(asked_command)
         if checked:
-            request = check.send_request(asked_command.split(" "), checked_type)
+            request = check.send_request(asked_command.split(" "), checked_type, verify_path=verify, cert_path=cert)
             check.receive_request(request)
         else:
             print("Comando inválido")
