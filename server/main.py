@@ -290,10 +290,13 @@ def login():
 
 @app.route('/callback', methods = ["GET"])
 def callback():
-	global spotify
-	token_url = 'https://accounts.spotify.com/api/token'
-	spotify.fetch_token(token_url=token_url,client_secret=client_secret,authorization_response=request.url)
-	return redirect(url_for('.profile'))
+    try:
+        global spotify
+        token_url = 'https://accounts.spotify.com/api/token'
+        spotify.fetch_token(token_url=token_url,client_secret=client_secret,authorization_response=request.url)
+        return redirect(url_for('.profile'))
+    except:
+        return "Acesso Negado, não pode acessar ao serviço", 404
 
 @app.route("/profile", methods=["GET"])
 def profile():
