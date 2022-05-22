@@ -14,10 +14,21 @@ Nesta api é possível criar utilizadores, musicas e artistas como também criar
 
 ## Como adicionar Spotify token
 
-No ficheiro main.py adicionar na linha 9 em spotify = Spotify(**token**)
+Fazer o login via,
+```http
+  GET /login
+```
+e conectar-se com a sua conta Spotify.
 ## Documentação da API
 
+#### Perfil
+```http
+  GET /profile
+```
+Informação sobre o perfil spotify.
+
 #### Criar utilizador
+
 
 ```http
   POST /utilizadores
@@ -240,6 +251,17 @@ No ficheiro main.py adicionar na linha 9 em spotify = Spotify(**token**)
 ```http
   DELETE /musicas
 ```
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Client api
